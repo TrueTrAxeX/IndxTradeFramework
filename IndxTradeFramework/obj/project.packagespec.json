@@ -1,0 +1,55 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "C:\\Users\\Napsy\\RiderProjects\\IndxTradeFramework\\IndxTradeFramework\\IndxTradeFramework.csproj",
+    "projectName": "IndxTradeFramework",
+    "projectPath": "C:\\Users\\Napsy\\RiderProjects\\IndxTradeFramework\\IndxTradeFramework\\IndxTradeFramework.csproj",
+    "outputPath": "C:\\Users\\Napsy\\RiderProjects\\IndxTradeFramework\\IndxTradeFramework\\obj\\",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.0"
+    ],
+    "frameworks": {
+      "netcoreapp2.0": {
+        "projectReferences": {}
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.0": {
+      "dependencies": {
+        "AngleSharp": {
+          "target": "Package",
+          "version": "[0.9.9.1, )"
+        },
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.0.0, )",
+          "autoReferenced": true
+        },
+        "Newtonsoft.Json": {
+          "target": "Package",
+          "version": "[11.0.1-beta3, )"
+        },
+        "RestSharp": {
+          "target": "Package",
+          "version": "[106.3.0-alpha0002, )"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

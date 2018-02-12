@@ -1,3 +1,4 @@
 .idea
-IndxTradeFramework/obj
+IndxTradeFramework/obj/Debug
+IndxTradeFramework/obj/*cache
 IndxTradeFramework/bin
