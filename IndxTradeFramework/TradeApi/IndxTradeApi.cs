@@ -83,17 +83,16 @@ namespace IndxTradeFramework.TradeApi
             
             _credentials = credentials;
         }
-        
-        private readonly Dictionary<string, string> _soapTemplates = new Dictionary<string, string>()
-        {
-            {"Balance", File.ReadAllText("./SoapTemplates/balance.txt")},
-            {"OfferAdd", File.ReadAllText("./SoapTemplates/offer_add.txt")},
-            {"OfferMy", File.ReadAllText("./SoapTemplates/offer_my.txt")},
-            {"OfferDelete", File.ReadAllText("./SoapTemplates/offer_delete.txt")},
-            {"OfferList", File.ReadAllText("./SoapTemplates/offer_list.txt")},
-            {"HistoryTrading", File.ReadAllText("./SoapTemplates/history_trading.txt")}
-        };
 
+        private readonly string _soapTemplate = @"<?xml version=""1.0"" encoding=""utf-8""?>
+    <soap12:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:soap12=""http://www.w3.org/2003/05/soap-envelope"">
+    <soap12:Body>
+    <{1} xmlns=""http://indx.ru/"">
+        <Request>{0}</Request>
+    </{1}>
+    </soap12:Body>
+    </soap12:Envelope>";
+ 
         public OfferListResponse OfferListRequest(Instrument instrument, TradeDirection? direction = null, TimeSpan? timeout = null, int maxAttempts = 3)
         {
             int oldTimeout = _restClient.Timeout;
@@ -126,7 +125,7 @@ namespace IndxTradeFramework.TradeApi
                 var req = new RestRequest("api/v1/tradejson.asmx", Method.POST);
                 
                 req.AddHeader("Content-Type", "application/soap+xml; charset=utf-8");
-                req.AddParameter("text/xml", string.Format(_soapTemplates["OfferList"], json), ParameterType.RequestBody);
+                req.AddParameter("text/xml", string.Format(_soapTemplate, json, "OfferList"), ParameterType.RequestBody);
 
                 var response = _restClient.Execute(req);
                 
@@ -284,7 +283,7 @@ namespace IndxTradeFramework.TradeApi
                 var req = new RestRequest("api/v1/tradejson.asmx", Method.POST);
                 req.AddHeader("Content-Type", "application/soap+xml; charset=utf-8");
                
-                req.AddParameter("text/xml", string.Format(_soapTemplates["HistoryTrading"], json), ParameterType.RequestBody);
+                req.AddParameter("text/xml", string.Format(_soapTemplate, json, "HistoryTrading"), ParameterType.RequestBody);
 
                 var response = _restClient.Execute(req);
                 
@@ -397,7 +396,7 @@ namespace IndxTradeFramework.TradeApi
                 var req = new RestRequest("api/v1/tradejson.asmx", Method.POST);
                 req.AddHeader("Content-Type", "application/soap+xml; charset=utf-8");
                
-                req.AddParameter("text/xml", string.Format(_soapTemplates["OfferDelete"], json), ParameterType.RequestBody);
+                req.AddParameter("text/xml", string.Format(_soapTemplate, json, "OfferDelete"), ParameterType.RequestBody);
 
                 var response = _restClient.Execute(req);
                 
@@ -502,7 +501,7 @@ namespace IndxTradeFramework.TradeApi
                 var req = new RestRequest("api/v1/tradejson.asmx", Method.POST);
                 req.AddHeader("Content-Type", "application/soap+xml; charset=utf-8");
                
-                req.AddParameter("text/xml", string.Format(_soapTemplates["OfferMy"], json), ParameterType.RequestBody);
+                req.AddParameter("text/xml", string.Format(_soapTemplate, json, "OfferMy"), ParameterType.RequestBody);
 
                 var response = _restClient.Execute(req);
                 
@@ -622,7 +621,7 @@ namespace IndxTradeFramework.TradeApi
                 var req = new RestRequest("api/v1/tradejson.asmx", Method.POST);
                 req.AddHeader("Content-Type", "application/soap+xml; charset=utf-8");
                
-                req.AddParameter("text/xml", string.Format(_soapTemplates["OfferAdd"], json), ParameterType.RequestBody);
+                req.AddParameter("text/xml", string.Format(_soapTemplate, json, "OfferAdd"), ParameterType.RequestBody);
 
                 var response = _restClient.Execute(req);
                 
@@ -705,7 +704,7 @@ namespace IndxTradeFramework.TradeApi
                 var req = new RestRequest("api/v1/tradejson.asmx", Method.POST);
                 req.AddHeader("Content-Type", "application/soap+xml; charset=utf-8");
                
-                req.AddParameter("text/xml", string.Format(_soapTemplates["Balance"], json), ParameterType.RequestBody);
+                req.AddParameter("text/xml", string.Format(_soapTemplate, json, "Balance"), ParameterType.RequestBody);
 
                 var response = _restClient.Execute(req);
 
