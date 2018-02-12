@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using System.Text;
@@ -462,12 +463,12 @@ namespace IndxTradeFramework.TradeApi
             {
                 if (dateStart == null)
                 {
-                    dateStart = DateTime.Now - TimeSpan.FromDays(7);
+                    dateStart = DateTime.Now - TimeSpan.FromDays(30);
                 }
 
                 if (dateEnd == null)
                 {
-                    dateEnd = dateStart + TimeSpan.FromDays(7);
+                    dateEnd = dateStart + TimeSpan.FromDays(30);
                 }
                 
                 if (timeout != null)
@@ -674,6 +675,26 @@ namespace IndxTradeFramework.TradeApi
             {
                 _restClient.Timeout = oldTimeout;
             }
+        }
+
+        /// <summary>
+        /// Позволяет получить предложения по указанному инструменту, не учитывая свои предложения
+        /// </summary>
+        /// <param name="client">Клиент для доступа к бирже без авторизации</param>
+        /// <param name="instrument">Инструмент для торговли</param>
+        /// <param name="direction">Направление торговли Buy/Sell</param>
+        /// <param name="fullQueue">Получить весь стакан (больше 20 записей)</param>
+        /// <returns></returns>
+        public List<IndxSiteClient.Offer> GetOffers(IndxSiteClient client, Instrument instrument, TradeDirection? direction = null, bool fullQueue = false)
+        {
+            var myOffers = this.OfferMyRequest(instrument, DateTime.Now - TimeSpan.FromDays(30),
+                DateTime.Now + TimeSpan.FromDays(300));
+            
+            var offers = client.GetOffers(instrument, direction, fullQueue);
+            
+            offers.RemoveAll(x => myOffers.Data.Any(c => c.OfferId == x.Id));
+
+            return offers;
         }
         
         public BalanceResponse GetBalance(TimeSpan? timeout = null, int maxAttempts = 3)
