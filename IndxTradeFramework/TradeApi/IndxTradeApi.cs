@@ -44,6 +44,8 @@ namespace IndxTradeFramework.TradeApi
         public class OfferAddResponse
         {
             public bool Success { get; set; }
+            public long OfferId { get; set; }
+            public int Code { get; set; }
         }
 
         public class OfferDeleteResponse
@@ -652,7 +654,10 @@ namespace IndxTradeFramework.TradeApi
 
                 if (responseCode == 0)
                 {
-                    return new OfferAddResponse() {Success = true};
+                    var offerId = jResponse["value"]["OfferID"].Value<long>();
+                    var code = jResponse["value"]["Code"].Value<int>();
+                    
+                    return new OfferAddResponse() {Success = true, OfferId = offerId, Code = code};
                 }
                 else
                 {
