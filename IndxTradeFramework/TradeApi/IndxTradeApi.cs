@@ -745,7 +745,7 @@ namespace IndxTradeFramework.TradeApi
                         {
                             var el = (JObject) jToken;
                             
-                            portfolios.Add(new Portfolio() { Name = el["Name"].Value<string>(), AveragePrice = el["AveragePrice"].Value<int>(), Count = el["Count"].Value<int>()});
+                            portfolios.Add(new Portfolio() { Name = el["Name"].Value<string>(), AveragePrice = el["AveragePrice"].Value<double>(), Count = el["Count"].Value<int>()});
                         }
                     }
                     
