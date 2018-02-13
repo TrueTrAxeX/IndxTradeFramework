@@ -211,7 +211,7 @@ namespace IndxTradeFramework.TradeApi
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine("Error: " + e.Message + " " + e.StackTrace);
                     throw new RequestException(-1000);
                 }
             }
@@ -279,8 +279,6 @@ namespace IndxTradeFramework.TradeApi
                     }
                 };
 
-                Console.WriteLine(requestObj);
-                
                 var json = JsonConvert.SerializeObject(requestObj);
                 
                 var req = new RestRequest("api/v1/tradejson.asmx", Method.POST);
@@ -360,7 +358,7 @@ namespace IndxTradeFramework.TradeApi
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine("Error: " + e.Message + " " + e.StackTrace);
                     throw new RequestException(-1000);
                 }
             }
@@ -447,7 +445,7 @@ namespace IndxTradeFramework.TradeApi
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine("Error: " + e.Message + " " + e.StackTrace);
                     throw new RequestException(-1000);
                 }
             }
@@ -578,7 +576,7 @@ namespace IndxTradeFramework.TradeApi
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine("Error: " + e.Message + " " + e.StackTrace);
                     throw new RequestException(-1000);
                 }
             }
@@ -797,7 +795,7 @@ namespace IndxTradeFramework.TradeApi
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine("Error: " + e.Message + " " + e.StackTrace);
                     throw new RequestException(-1000);
                 }
 

@@ -177,6 +177,11 @@ namespace IndxTradeFramework.TradeApi
                     .AddHeader("Referer", "https://indx.ru/trade/0/")
                     .AddHeader("X-Requested-With", "XMLHttpRequest"));
 
+                if (data.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new RequestException((int) data.StatusCode);
+                }
+                
                 var jResponse = JObject.Parse(data.Content);
 
                 if (jResponse["d"]?["value"] != null)
