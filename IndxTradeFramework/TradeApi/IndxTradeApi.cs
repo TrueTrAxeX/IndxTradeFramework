@@ -653,10 +653,16 @@ namespace IndxTradeFramework.TradeApi
                 }
 
                 if (responseCode == 0)
-                {
-                    var offerId = jResponse["value"]["OfferID"].Value<long>();
+                { 
                     var code = jResponse["value"]["Code"].Value<int>();
+
+                    if (code != 0)
+                    {
+                        return new OfferAddResponse() {Success = false, OfferId = -1, Code = code};
+                    }
                     
+                    var offerId = jResponse["value"]["OfferID"].Value<long>();
+                   
                     return new OfferAddResponse() {Success = true, OfferId = offerId, Code = code};
                 }
                 else
@@ -672,7 +678,7 @@ namespace IndxTradeFramework.TradeApi
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                    Console.WriteLine("Error: " + e.Message + " " + e.StackTrace);
                     throw new RequestException(-1000);
                 }
             }
