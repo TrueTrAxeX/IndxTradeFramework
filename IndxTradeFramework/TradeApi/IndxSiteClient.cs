@@ -43,8 +43,8 @@ namespace IndxTradeFramework.TradeApi
             public string Nickname { get; set; }
             public TradeDirection Direction { get; set; }
             public string SymbolName { get; set; }
-            public DateTime CreateDate { get; set; }
-            public DateTime UpdateDate { get; set; }
+            public DateTime? CreateDate { get; set; }
+            public DateTime? UpdateDate { get; set; }
             public int SymbolId { get; set; }
         }
 
@@ -193,8 +193,28 @@ namespace IndxTradeFramework.TradeApi
                         {
                             var el = (JObject) jT;
 
-                            var createDate = DateTime.Parse(el["DateCrt"].Value<string>());
-                            var updateDate = DateTime.Parse(el["DateUpd"].Value<string>());
+                            DateTime? createDate = null;
+                            DateTime? updateDate = null;
+                            
+                            try
+                            {
+                                createDate = DateTime.Parse(el["DateCrt"].Value<string>());
+                            }
+                            catch (Exception ex)
+                            {
+                                
+                            }
+
+                            try
+                            {
+                                updateDate = DateTime.Parse(el["DateUpd"].Value<string>());
+                            }
+                            catch (Exception ex)
+                            {
+                                
+                            }
+                            
+                           
                             var dir = el["IsBid"].Value<bool>() ? TradeDirection.Buy : TradeDirection.Sell;
 
                             if (direction != null)
