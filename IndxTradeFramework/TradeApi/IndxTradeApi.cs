@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -546,6 +547,10 @@ namespace IndxTradeFramework.TradeApi
                         foreach (var jToken in arr)
                         {
                             JObject el = (JObject) jToken;
+
+                            var dateRaw = el["Stamp"].Value<string>();
+
+                            var date = DateTime.ParseExact(dateRaw, "M/d/yyyy h:mm tt", CultureInfo.InvariantCulture);
                             
                             list.Add(new OfferMy()
                             {
@@ -554,7 +559,7 @@ namespace IndxTradeFramework.TradeApi
                                 Direction = el["Incoming"].Value<int>() == 1 ? TradeDirection.Buy : TradeDirection.Sell,
                                 Price = el["Price"].Value<double>(),
                                 Count = el["Count"].Value<int>(),
-                                Date = DateTime.Parse(el["Stamp"].Value<string>())
+                                Date = date
                             });
                         }
                         
